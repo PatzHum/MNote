@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<div id="eqn-editor" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Equation Editor</h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="eqn-editor-input" type="text" class="form-control" autofocus></textarea>
+                <div id="eqn-editor-output" style="min-height:100px"></div>
+            </div>
+            <div class="modal-footer">
+                <p>Press ALT+ENTER to submit</p>
+                <button class="btn btn-primary" onclick="submitEqn()">Insert</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+function submitEqn(){
+    equationValue = "$$" + $("#eqn-editor-input").val() + "$$\n";
+    $("#eqn-editor").modal("toggle");
+    if (onEqnSubmit !== undefined){
+        onEqnSubmit();
+    }
+}
+var updateTimeout;
+$("#eqn-editor-input").keyup(function(e){    
+    if (e.which == 13 && e.altKey)
+    //Press enter
+    {
+       submitEqn(); 
+    }
+    clearTimeout(updateTimeout);
+    updateTimeout = setTimeout(function(){ 
+        $("#eqn-editor-output").html("$$" + $("#eqn-editor-input").val() + "$$");
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, "eqn-editor-output"]);
+    }, 500);
+});
+var equationValue = "";
+
+$('.modal').on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
+});
+$(document).on("keypress", function (e) {
+    if (e.which == "`".charCodeAt(0)){
+        if (preEqnDialog !== undefined){
+            preEqnDialog();
+        }
+        $("#eqn-editor").modal("toggle");
+        $("#eqn-editor-input").select();
+        return false;
+    }
+});
+
+var caretLocation = 0;
+preEqnDialog = function(){
+    caretLocation = $('#raw_in').prop("selectionStart");
+}
+onEqnSubmit = function(){
+    $('#raw_in').prop("selectionStart", caretLocation);
+    $("#raw_in").insertAtCaret(equationValue);   
+}
+</script>

@@ -1,0 +1,68 @@
+.fill{
+    width:100%;
+    height:100%;
+    padding:0;
+    margin:0;
+}
+#raw_in{
+    font-family: "Courier New";
+    padding:1%;
+}
+body,html{
+    background:white;
+    width:8.5in;
+}
+#out{
+    background:white;
+    padding:0.5in;
+    margin:0;
+}
+.no-pad{
+    margin:0 !important;
+    padding:0 !important;
+}
+.compile-btn{
+    color:black;
+    background:white;
+    border:none;
+    border-radius:30px;
+    padding:15px;
+    margin:10px;
+    position:absolute;
+    top:10px;
+    right:10px;
+    box-shadow:0px 0px 5px black;
+}
+.save-btn{
+    color:black;
+    background:white;
+    border:none;
+    border-radius:30px;
+    padding:15px;
+    position:absolute;
+    margin:10px;
+    top:70px;
+    right:10px;
+    box-shadow:0px 0px 5px black;
+}
+.newinst-btn{
+    color:black;
+    background:white;
+    border:none;
+    border-radius:30px;
+    padding:15px;
+    position:absolute;
+    margin:10px;
+    top:130px;
+    right:10px;
+    box-shadow:0px 0px 5px black;
+}
+body{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    box-shadow: 0px 0px 6px black;
+}
+html{
+    background:grey;
+}
